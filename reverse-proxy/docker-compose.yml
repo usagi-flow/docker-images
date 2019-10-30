@@ -1,0 +1,11 @@
+version: "3.2"
+
+services:
+
+  reverse-proxy:
+    build:
+      context: .
+    container_name: reverse-proxy
+    ports:
+      - "33080:80"
+    restart: "always"
