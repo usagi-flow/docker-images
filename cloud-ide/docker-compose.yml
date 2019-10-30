@@ -11,5 +11,5 @@ services:
         source: ./project
         target: /home/project
     ports:
-      - "3000:3000"
+      - "33000:3000"
     restart: "always"

@@ -7,7 +7,7 @@ RUN apk add --no-cache build-base g++ clang meson python2 && \
 	rm -f /usr/bin/c++ && ln -s /usr/bin/clang++ /usr/bin/c++
 
 USER theia
-RUN npm install --save @theia/cpp
+RUN yarn add @theia/cpp
 
 USER root
 RUN apk del python2
