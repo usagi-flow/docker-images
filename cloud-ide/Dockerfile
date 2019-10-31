@@ -24,7 +24,7 @@ RUN apk del python2 && \
 	echo 'echo "Synchronizing UID #$uid / GID #$gid"' >> /opt/start.sh && \
 	echo 'usermod -u $uid theia || :' >> /opt/start.sh && \
 	echo 'groupmod -g $gid theia || :' >> /opt/start.sh && \
-	echo 'sudo -E -H -i -u theia node /home/theia/src-gen/backend/main.js /home/project --hostname="$BIND_ADDRESS"' >> /opt/start.sh && \
+	echo 'sudo -H -i -u theia node /home/theia/src-gen/backend/main.js /home/project --hostname="$BIND_ADDRESS"' >> /opt/start.sh && \
 	chmod 755 /opt/start.sh
 
 WORKDIR /home/theia
