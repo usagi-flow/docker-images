@@ -7,8 +7,6 @@ RUN echo 'alias l="ls -alh"' >> /etc/profile && \
 	mkdir -p /srv/www && \
 	echo '#!/bin/sh' > /opt/start.sh && \
 	echo 'echo "$USER_0" > /srv/.htpasswd' >> /opt/start.sh && \
-	echo 'echo "Entries:"' >> /opt/start.sh && \
-	echo 'cat /srv/.htpasswd' >> /opt/start.sh && \
 	echo 'nginx -g "daemon off;"' >> /opt/start.sh && \
 	chmod 755 /opt/start.sh
 
