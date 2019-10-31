@@ -2,11 +2,12 @@ FROM theiaide/theia
 
 WORKDIR /home/theia
 USER root
-RUN apk add --no-cache sudo shadow build-base g++ clang meson python2 && \
+RUN apk add --no-cache sudo shadow build-base g++ clang meson python2 zsh && \
 	rm -f /usr/bin/cc && ln -s /usr/bin/clang /usr/bin/cc && \
 	rm -f /usr/bin/c++ && ln -s /usr/bin/clang++ /usr/bin/c++ && \
 	userdel node && \
-	echo 'export PATH="$PATH:$HOME/.yarn/bin' >> /etc/profile && \
+	usermod -s /usr/bin/zsh theia && \
+	echo 'export PATH="$PATH:$HOME/.yarn/bin"' >> /etc/profile && \
 	echo 'alias l="ls -alh"' >> /etc/profile && \
 	echo 'alias install="apk add --no-cache"' >> /etc/profile
 
@@ -23,7 +24,7 @@ RUN apk del python2 && \
 	echo 'echo "Synchronizing UID #$uid / GID #$gid"' >> /opt/start.sh && \
 	echo 'usermod -u $uid theia || :' >> /opt/start.sh && \
 	echo 'groupmod -g $gid theia || :' >> /opt/start.sh && \
-	echo 'sudo -E -H -u theia node /home/theia/src-gen/backend/main.js /home/project --hostname="$BIND_ADDRESS"' >> /opt/start.sh && \
+	echo 'sudo -E -H -i -u theia node /home/theia/src-gen/backend/main.js /home/project --hostname="$BIND_ADDRESS"' >> /opt/start.sh && \
 	chmod 755 /opt/start.sh
 
 WORKDIR /home/theia
