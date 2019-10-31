@@ -2,7 +2,8 @@ FROM nginx:alpine
 
 COPY nginx.conf /etc/nginx/
 
-RUN echo '<html><body><h1>Hello world!</body></html>' > /usr/share/nginx/html/index.html
+RUN mkdir -p /srv/www && \
+	echo '<html><body><h1>Hello world!</body></html>' > /srv/www/index.html
 
 EXPOSE 80
 
