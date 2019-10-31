@@ -15,6 +15,6 @@ RUN apk del python2 && \
 	echo 'alias install="apk add --no-cache"' >> /etc/profile
 
 WORKDIR /home/theia
-#USER theia
+USER theia
 ENV ENV=/etc/profile
 ENTRYPOINT node /home/theia/src-gen/backend/main.js /home/project --hostname="$BIND_ADDRESS"
