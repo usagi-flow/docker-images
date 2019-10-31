@@ -6,6 +6,8 @@ services:
     build:
       context: .
     container_name: cloud-ide
+    environment:
+      BIND_ADDRESS: cloud-ide
     volumes:
       - type: bind
         source: ./project
