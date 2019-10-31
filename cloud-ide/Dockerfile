@@ -10,7 +10,8 @@ RUN apk add --no-cache sudo shadow build-base g++ clang meson python2 && \
 	echo 'alias install="apk add --no-cache"' >> /etc/profile
 
 USER theia
-RUN yarn add @theia/cpp
+RUN yarn add @theia/cpp && \
+	yarn global add typescript ts-node
 
 USER root
 RUN apk del python2 && \
