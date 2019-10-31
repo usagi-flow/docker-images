@@ -6,6 +6,7 @@ RUN apk add --no-cache sudo shadow build-base g++ clang meson python2 && \
 	rm -f /usr/bin/cc && ln -s /usr/bin/clang /usr/bin/cc && \
 	rm -f /usr/bin/c++ && ln -s /usr/bin/clang++ /usr/bin/c++ && \
 	userdel node && \
+	echo 'export PATH="$PATH:$HOME/.yarn/bin' >> /etc/profile && \
 	echo 'alias l="ls -alh"' >> /etc/profile && \
 	echo 'alias install="apk add --no-cache"' >> /etc/profile
 
