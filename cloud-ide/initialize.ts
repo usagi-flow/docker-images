@@ -12,6 +12,7 @@ sh.exec("apk add --no-cache docker-cli.apk").toEnd("/dev/null");
 // SSH convenience
 let knownHost : string = "";
 sh.mkdir("-p", "/home/theia/.ssh");
+sh.exec("chown theia:theia /home/theia/.ssh");
 sh.chmod(700, "/home/theia/.ssh");
 sh.echo(knownHost).toEnd("/home/theia/.ssh/known_hosts");
 
