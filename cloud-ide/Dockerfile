@@ -3,9 +3,6 @@ FROM theiaide/theia
 WORKDIR /home/theia
 USER root
 RUN apk add --no-cache sudo shadow curl build-base zsh && \
-	#apk add --no-cache g++ clang meson python2 && \
-	#rm -f /usr/bin/cc && ln -s /usr/bin/clang /usr/bin/cc && \
-	#rm -f /usr/bin/c++ && ln -s /usr/bin/clang++ /usr/bin/c++ && \
 	userdel node && \
 	usermod -s "$(which zsh)" theia && \
 	echo 'export PATH="$PATH:$HOME/.yarn/bin"' >> /etc/profile && \
@@ -15,7 +12,6 @@ RUN apk add --no-cache sudo shadow curl build-base zsh && \
 
 USER theia
 RUN \
-	#yarn add @theia/cpp && \
 	yarn global add typescript ts-node && \
 	mkdir -p .ssh && \
 	chmod 700 .ssh && \
@@ -25,9 +21,19 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh
 
 USER root
 RUN \
-	#apk del python2 && \
 	echo '#!/bin/sh' > /opt/start.sh && \
 	echo 'set -e' >> /opt/start.sh && \
+	echo 'if [ ! -f /opt/.initialized ]; then' >> /opt/start.sh && \
+	echo '	if [ -f /opt/initialize.sh ]; then' >> /opt/start.sh && \
+	echo '		echo "Initializing container"' >> /opt/start.sh && \
+	echo '		sh /opt/initialize.sh' >> /opt/start.sh && \
+	echo '	fi' >> /opt/start.sh && \
+	echo '	if [ -f /opt/initialize.ts ]; then' >> /opt/start.sh && \
+	echo '		echo "Initializing container"' >> /opt/start.sh && \
+	echo '		ts-node /opt/initialize.ts' >> /opt/start.sh && \
+	echo '	fi' >> /opt/start.sh && \
+	echo '	touch /opt/.initialized' >> /opt/start.sh && \
+	echo 'fi' >> /opt/start.sh && \
 	echo 'export uid=$(ls -dn /home/project | tr -s " " | cut -d" " -f3)' >> /opt/start.sh && \
 	echo 'export gid=$(ls -dn /home/project | tr -s " " | cut -d" " -f4)' >> /opt/start.sh && \
 	echo 'echo "Synchronizing UID #$uid / GID #$gid"' >> /opt/start.sh && \
