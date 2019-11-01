@@ -3,6 +3,8 @@
 
 A simple, easy-to-configure reverse proxy with optional basic authentication support.
 
+This image builds upon [Nginx](https://hub.docker.com/_/nginx).
+
 ## Usage
 
 This image is configured through environment variables:
@@ -15,7 +17,7 @@ This image is configured through environment variables:
 -	**Users**: the .htpasswd entries; define any number of entries by using an numeric index _n_ starting with 0. See "Basic authentication" for more information.
 	-	`user`_n_: (_mandatory_) The .htpasswd user entry
 
-The image uses Nginx as a backend and generates its configuration based on the environment variables.
+The image generates its configuration based on the environment variables. Alternatively, it is possible to mount an own `nginx.conf` file to `/etc/nginx/nginx.conf`. The container will detect this and will not change the mounted file.
 
 See `docker-compose.yml` for a usage example.
 
