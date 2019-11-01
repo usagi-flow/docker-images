@@ -6,6 +6,15 @@ services:
     build:
       context: .
     container_name: reverse-proxy
+    environment:
+      server_name: 'node2'
+      location0_source: '/'
+      location0_destination: 'http://cloud-ide:3000'
+      location0_basicauth: '1'
+      location1_source: '/services'
+      location1_destination: 'http://cloud-ide:3000/services'
+      location1_basicauth: '0'
+      user0: nehu:$$apr1$$7JYORieb$$LY0VFfFLySL1KI5nukFGp0'
     ports:
       - "33080:80"
     restart: "always"
