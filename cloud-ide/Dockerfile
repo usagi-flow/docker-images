@@ -9,8 +9,7 @@ RUN apk add --no-cache sudo shadow curl build-base zsh && \
 	yarn global add --dev @types/node @types/shelljs && \
 	echo 'export PATH="$PATH:/home/theia/.yarn/bin"' >> /etc/profile && \
 	echo 'alias l="ls -alh"' >> /etc/profile && \
-	echo 'alias install="apk add --no-cache"' >> /etc/profile && \
-	echo 'alias ssh-hactar="ssh -p16843 nehu@node21247.ood.ovh"' >> /etc/profile
+	echo 'alias install="apk add --no-cache"' >> /etc/profile
 
 USER theia
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -26,7 +25,7 @@ RUN \
 	echo '	exit $?' >> /opt/start.sh && \
 	echo 'fi' >> /opt/start.sh && \
 	# Initialization scripts
-	echo '. /etc/profile' >> /opt/start.sh && \
+	echo 'export PATH="$PATH:/home/theia/.yarn/bin"' >> /opt/start.sh && \
 	echo 'if [ -f /opt/initialize.sh ]; then' >> /opt/start.sh && \
 	echo '	echo "Initializing container"' >> /opt/start.sh && \
 	echo '	sh /opt/initialize.sh' >> /opt/start.sh && \
@@ -42,9 +41,9 @@ RUN \
 	echo '	ts-node --project "$(yarn global dir)/tsconfig.json" /opt/initialize.ts' >> /opt/start.sh && \
 	echo 'fi' >> /opt/start.sh && \
 	# Support a peristent .zshrc.local
-	echo 'echo "if [ -f /home/project/.zshrc.local ]; then" >> /home/theia/.zshrc.local' >> /opt/start.sh && \
-	echo 'echo "	source /home/project/.zshrc.local" >> /home/theia/.zshrc.local' >> /opt/start.sh && \
-	echo 'echo "fi" >> /home/theia/.zshrc.local' >> /opt/start.sh && \
+	echo 'echo "if [ -f /home/project/.zshrc.local ]; then" >> /home/theia/.zshrc' >> /opt/start.sh && \
+	echo 'echo "	source /home/project/.zshrc.local" >> /home/theia/.zshrc' >> /opt/start.sh && \
+	echo 'echo "fi" >> /home/theia/.zshrc' >> /opt/start.sh && \
 	# UID/GID synchronization
 	echo 'export uid=$(ls -dn /home/project | tr -s " " | cut -d" " -f3)' >> /opt/start.sh && \
 	echo 'export gid=$(ls -dn /home/project | tr -s " " | cut -d" " -f4)' >> /opt/start.sh && \
