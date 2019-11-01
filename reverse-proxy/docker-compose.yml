@@ -7,7 +7,8 @@ services:
       context: .
     container_name: reverse-proxy
     environment:
-      # Note: '$' characters must be escaped with an extra '$'
+      # Note: '$' characters must be escaped with an extra '$';
+      # cat .htpasswd | sed 's|\$|\$\$|g'
       server_name: 'node2'
       location0_source: '/'
       location0_destination: 'http://cloud-ide:3000'
