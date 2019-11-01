@@ -7,11 +7,14 @@ services:
       context: .
     container_name: cloud-ide
     environment:
-      BIND_ADDRESS: cloud-ide
+      BIND_ADDRESS: 0.0.0.0
     volumes:
       - type: bind
         source: ./project
         target: /home/project
+      - type: bind
+        source: ./initialize.ts
+        target: /opt/initialize.ts
     ports:
       - "33000:3000"
     restart: "always"
