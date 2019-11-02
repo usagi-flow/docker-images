@@ -5,8 +5,9 @@ USER root
 RUN apk add --no-cache sudo shadow curl build-base zsh && \
 	userdel node && \
 	usermod -s "$(which zsh)" theia && \
-	yarn global add typescript ts-node shelljs && \
+	yarn global add typescript ts-node && \
 	yarn global add --dev @types/node @types/shelljs && \
+	yarn global add https://github.com/etienne-k/shelljs.git#feat-chown && \
 	echo 'export PATH="$PATH:/home/theia/.yarn/bin"' >> /etc/profile && \
 	echo 'alias l="ls -alh"' >> /etc/profile && \
 	echo 'alias install="apk add --no-cache"' >> /etc/profile
@@ -20,19 +21,19 @@ RUN \
 	echo 'set -e' >> /opt/start.sh && \
 	# If already initialized (restarted container), skip initialization
 	echo 'if [ -f /opt/.initialized ]; then' >> /opt/start.sh && \
-	echo '	echo "Starting IDE server"' >> /opt/start.sh && \
+	echo '	echo "Restarting IDE server"' >> /opt/start.sh && \
 	echo '	sudo -H -i -u theia node /home/theia/src-gen/backend/main.js /home/project --hostname="$BIND_ADDRESS"' >> /opt/start.sh && \
 	echo '	exit $?' >> /opt/start.sh && \
 	echo 'fi' >> /opt/start.sh && \
 	# Initialization scripts
+	echo 'echo "Initializing container"' >> /opt/start.sh && \
 	echo 'export PATH="$PATH:/home/theia/.yarn/bin"' >> /opt/start.sh && \
 	echo 'if [ -f /opt/initialize.sh ]; then' >> /opt/start.sh && \
-	echo '	echo "Initializing container"' >> /opt/start.sh && \
 	echo '	sh /opt/initialize.sh' >> /opt/start.sh && \
 	echo 'fi' >> /opt/start.sh && \
 	echo 'if [ -f /opt/initialize.ts ]; then' >> /opt/start.sh && \
-	echo '	echo "Initializing container"' >> /opt/start.sh && \
 	echo '	echo "{ \"compilerOptions\": { ' \
+		'\"target\" : \"ES6\", ' \
 		'\"typeRoots\" : [\"$(yarn global dir)/node_modules/@types\"], ' \
 		'\"baseUrl\" : \"$(yarn global dir)/node_modules\", ' \
 		'\"paths\" : { \"*\" : [\"*\"] } ' \
