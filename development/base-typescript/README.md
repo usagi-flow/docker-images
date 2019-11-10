@@ -15,7 +15,7 @@ The image comes in two flavors:
 
 The `dev-latest` tag defines a _just-in-time compilation_ container, which supports the development workflow by allowing in-place development.
 
-This workflow requires mounting your project directory to `/opt/app`.
+This workflow requires mounting your project directory to `/opt/app`. See `docker-compose.dev.yml` for an example.
 
 The container assumes the existence of a `package.json` file with a correct `main` attribute, and a respective `tsconfig.json` file. No particular scripts or dependencies are required.
 

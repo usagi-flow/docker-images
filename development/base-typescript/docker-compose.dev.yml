@@ -1,0 +1,11 @@
+version: "3.2"
+
+services:
+
+  myapp:
+    image: mrnehu/base-typescript:dev-latest
+    container_name: myapp
+    volumes:
+      - type: bind
+        source: .
+        target: /opt/app
