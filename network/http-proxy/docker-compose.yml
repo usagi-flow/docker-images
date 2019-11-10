@@ -1,0 +1,7 @@
+pivoxy:
+  build: /home/nehu/docker/http-proxy
+  ports:
+   - 58110:8118/tcp
+  restart: on-failure:3
+  volumes:
+    - /home/nehu/docker/http-proxy/data/:/data
