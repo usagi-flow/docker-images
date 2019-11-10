@@ -1,0 +1,15 @@
+{
+	"name": "docker-images",
+	"version": "1.0.0",
+	"author": "etienne-k",
+	"license": "GPL-3.0-or-later",
+	"scripts": {
+		"doc": "ts-node -T generate-documentation.ts"
+	},
+	"dependencies": {
+		"@types/node": "^12.12.7",
+		"shelljs": "https://github.com/etienne-k/shelljs.git#feat-chown",
+		"ts-node": "^8.4.1",
+		"typescript": "^3.7.2"
+	}
+}

@@ -3,6 +3,10 @@
 
 A simple, easy-to-configure reverse proxy with optional basic authentication support.
 
+```
+docker pull mrnehu/reverse-proxy
+```
+
 This image builds upon [Nginx](https://hub.docker.com/_/nginx).
 
 ## Usage

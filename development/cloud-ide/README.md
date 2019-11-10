@@ -3,6 +3,10 @@
 
 A simple, configurable cloud IDE instance.
 
+```
+docker pull mrnehu/cloud-ide
+```
+
 This image builds upon [Theia](https://theia-ide.org) and comes with a fancy ZShell and optional Docker integration.
 
 ## Usage
