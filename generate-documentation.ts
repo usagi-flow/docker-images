@@ -2,8 +2,18 @@ import * as fs from "fs";
 import * as path from "path";
 import * as sh from "shelljs";
 
+/**
+ * A generator which searches the repository for directories containing a Docker image.
+ * 
+ * A directory is identified as such if it container a Dockerfile and a README.md.
+ * 
+ * The generator treats the containing directory name as the image name
+ * and extracts the description from the README.md file.
+ */
 class Generator
 {
+	protected static readonly readmeName : string = "README.md";
+	protected static readonly dockerfileName : string = "Dockerfile";
 	protected static readonly readme : string = path.join(__dirname, "README.md");
 	protected static readonly dockerRegistry : string = "https://hub.docker.com/r";
 	protected static readonly dockerRegistryUser : string = "mrnehu";
@@ -16,8 +26,8 @@ class Generator
 
 		sh.find(".").filter((value: string, index: number, array: string[]) => {
 			return fs.lstatSync(value).isDirectory() &&
-				fs.existsSync(path.join(value, "Dockerfile")) &&
-				fs.existsSync(path.join(value, "README.md"));
+				fs.existsSync(path.join(value, Generator.dockerfileName)) &&
+				fs.existsSync(path.join(value, Generator.readmeName));
 		}).forEach(Generator.processImage);
 
 		Generator.writeEnd();
@@ -44,6 +54,8 @@ class Generator
 		let category = Generator.getParent(imagePath) 
 		let image = path.basename(imagePath);
 		let url = Generator.dockerRegistry + "/" + Generator.dockerRegistryUser + "/" + image;
+		let readme = path.join(imagePath, Generator.readmeName);
+		let description : string;
 
 		category = category.charAt(0).toUpperCase() + category.slice(1);
 
@@ -55,8 +67,11 @@ class Generator
 			Generator.lastCategory = category;
 		}
 
-		sh.echo("-	[" + image + "](" + url + ") - _The generator must be taught to put a description here._")
-			.toEnd(Generator.readme);
+		// TODO: not the most flexible way
+		description = sh.cat(readme).head({"-n": 4}).tail({"-n": 1}).stdout;
+		description = description ? " - " + description : description;
+
+		sh.echo("-	[" + image + "](" + url + ")" + description).toEnd(Generator.readme);
 	}
 
 	protected static getParent(pathValue : string) : string
