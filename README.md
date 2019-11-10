@@ -9,6 +9,10 @@ Below you'll find an overview of all ready-to-use images, hosted on [hub.docker.
 
 ## Development
 
+-	[base-typescript](https://hub.docker.com/r/mrnehu/base-typescript) - A base image for TypeScript development.
+
+		docker pull mrnehu/base-typescript
+
 -	[cloud-ide](https://hub.docker.com/r/mrnehu/cloud-ide) - A simple, configurable cloud IDE instance.
 
 		docker pull mrnehu/cloud-ide

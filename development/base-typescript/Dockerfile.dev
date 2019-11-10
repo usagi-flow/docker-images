@@ -1,0 +1,9 @@
+FROM node:alpine
+
+WORKDIR /opt/app
+
+USER root
+
+RUN yarn global add typescript concurrently nodemon
+
+ENTRYPOINT yarn install && concurrently -n "ts,nd" "tsc -p tsconfig.json --pretty -w" "sleep 5 && nodemon ."
