@@ -17,6 +17,12 @@ Mount the Docker socket (`/var/run/docker.sock`) into the container. This will b
 
 ### Optional: custom initialization script
 
-Mount an `initialize.ts` or `initialize.sh` file to `/opt/initialize.ts`/`/opt/initialize.sh`. That's right, you can write the initialization script in TypeScript!
+Mount an `initialize.ts` or `initialize.sh` file to `/opt/initialize.ts`/`/opt/initialize.sh` (that's right, you can write the initialization script in TypeScript!).
 
 The TypeScript initialization file can access the [NodeJS](https://nodejs.org/api) and [ShellJS](https://github.com/etienne-k/shelljs.git#feat-chown) runtimes.
+
+The IDE application is a NodeJS application located under `/home/theia`. Additional dependencies (e.g. IDE extensions) can be installed with Yarn/NPM.
+
+### Optional: custom ZShell configuration
+
+You can create a `.zshrc.local` file at the root of the project directory. If it exists, it will be sourced automatically: a neat way to define your aliases and customize your ZShell.
