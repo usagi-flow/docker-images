@@ -9,6 +9,7 @@ The image comes in two flavors:
 
 -	The `dev-latest` tag defines a _just-in-time compilation_ container, which supports the development workflow by allowing in-place development.
 -	The `prod-latest` tag defines an _ahead-of-time compilation_ container, suitable for packaging and distributing an application.
+-	The `latest` tag points to `prod-latest`.
 
 ### `dev-latest` - in-container development
 
