@@ -41,12 +41,18 @@ class Generator
 		sh.echo("A collection of various base and application Docker images.").toEnd(Generator.readme);
 		sh.echo("").toEnd(Generator.readme);
 		sh.echo("## Images").toEnd(Generator.readme);
+		sh.echo("").toEnd(Generator.readme);
+		sh.echo("Below you'll find an overview of all ready-to-use images, " +
+			"hosted on [hub.docker.com](https://hub.docker.com/r/mrnehu).").toEnd(Generator.readme);
 	}
 
 	protected static writeEnd() : void
 	{
 		sh.echo("").toEnd(Generator.readme);
-		sh.echo("_Documentation generated with `yarn install && yarn doc`._").toEnd(Generator.readme);
+		sh.echo("---").toEnd(Generator.readme);
+		sh.echo("").toEnd(Generator.readme);
+		sh.echo("###### Documentation generated with `yarn install && yarn doc`.")
+			.toEnd(Generator.readme);
 	}
 
 	protected static processImage(imagePath : string) : void
@@ -69,9 +75,13 @@ class Generator
 
 		// TODO: not the most flexible way
 		description = sh.cat(readme).head({"-n": 4}).tail({"-n": 1}).stdout;
-		description = description ? " - " + description : description;
+		description = description ? " - " + description.trim() : description;
 
 		sh.echo("-	[" + image + "](" + url + ")" + description).toEnd(Generator.readme);
+		sh.echo("").toEnd(Generator.readme);
+		sh.echo("		docker pull " + Generator.dockerRegistryUser + "/" + image)
+			.toEnd(Generator.readme);
+		sh.echo("").toEnd(Generator.readme);
 	}
 
 	protected static getParent(pathValue : string) : string
