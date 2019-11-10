@@ -30,8 +30,9 @@ The container assumes the existence of a `package.json` file with the `build` an
 
 Create your own Dockerfile in your project directory as follows:
 ```
-FROM mrnehu/base-typescript:latest
+FROM mrnehu/base-typescript:prod-latest
 COPY . .
+RUN yarn install && yarn run build
 ```
 
 Then, build your container directly or using docker-compose.
