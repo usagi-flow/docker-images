@@ -35,6 +35,7 @@ class Generator
 
 	protected static writeEnd() : void
 	{
+		sh.echo("").toEnd(Generator.readme);
 		sh.echo("_Documentation generated with `yarn install && yarn doc`._").toEnd(Generator.readme);
 	}
 
