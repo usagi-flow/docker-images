@@ -20,6 +20,10 @@ Below you'll find an overview of all ready-to-use images, hosted on [hub.docker.
 
 ## Network
 
+-	[http-proxy](https://hub.docker.com/r/mrnehu/http-proxy) - An easy-to-setup and easy-to-configure HTTP proxy with ad blocking capabilities.
+
+		docker pull mrnehu/http-proxy
+
 -	[reverse-proxy](https://hub.docker.com/r/mrnehu/reverse-proxy) - A simple, easy-to-configure reverse proxy with optional basic authentication support.
 
 		docker pull mrnehu/reverse-proxy
