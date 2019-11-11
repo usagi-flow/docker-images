@@ -42,12 +42,11 @@ Rebuilding:
 version: "3.2"
 
 services:
-
   http-proxy:
     build: .
     container_name: http-proxy
     ports:
-    - "8118:8118/tcp"
+      - "8118:8118/tcp"
     restart: on-failure:3
 ```
 
@@ -56,12 +55,11 @@ Mounting:
 version: "3.2"
 
 services:
-
   http-proxy:
     image: mrnehu/http-proxy
     container_name: http-proxy
     ports:
-	- "8118:8118/tcp"
+      - "8118:8118/tcp"
     volumes:
       - type: bind
         source: ./assets/config

@@ -6,5 +6,5 @@ services:
     image: mrnehu/http-proxy
     container_name: http-proxy
     ports:
-    - 8118:8118/tcp
+      - 8118:8118/tcp
     restart: on-failure:3
