@@ -1,7 +1,11 @@
-docker-images
-=============
+base-typescript
+===============
 
 A base image for TypeScript development.
+
+```
+docker pull mrnehu/base-typescript
+```
 
 ## Usage
 
@@ -23,9 +27,9 @@ When starting the container, it will concurrently run `tsc -w` and `nodemon` to 
 
 ### `prod-latest` - AoT compilation
 
-The `latest` tag defines an _ahead-of-time compilation_ container: the application will be built together with the container.
+The `latest` tag defines an _ahead-of-time compilation_ container: the application will be built together with the image.
 
-This workflow requires rebuilding the container each time the source code is modified, but does not require distributing code separately.
+This workflow requires rebuilding the image each time the source code is modified, but does not require distributing code separately.
 
 The container assumes the existence of a `package.json` file with the `build` and `start` scripts. No particular dependencies are required.
 

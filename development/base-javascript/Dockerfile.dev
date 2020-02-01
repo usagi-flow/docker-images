@@ -1,0 +1,9 @@
+FROM node:alpine
+
+WORKDIR /opt/app
+
+USER root
+
+RUN yarn global add nodemon
+
+ENTRYPOINT yarn install && sleep 1 && nodemon .
