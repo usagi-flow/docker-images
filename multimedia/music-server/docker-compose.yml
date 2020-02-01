@@ -1,0 +1,23 @@
+version: "3.2"
+
+services:
+
+  music-server:
+    image: airsonic/airsonic
+    volumes:
+      - type: bind
+        source: ./music
+        target: /airsonic/music
+      - type: bind
+        source: ./podcasts
+        target: /airsonic/podcasts
+      - type: bind
+        source: ./playlists
+        target: /airsonic/playlists
+      - type: bind
+        source: ./data
+        target: /airsonic/data
+    ports:
+      - "4040:4040"
+      - "1900:1900"
+    network_mode: "host"
