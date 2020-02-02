@@ -1,0 +1,17 @@
+version: "3.2"
+
+services:
+
+  samba-server:
+    image: dperson/samba:aarch64
+    environment:
+      SHARE1: "Music;/srv/music;yes;no;yes;all"
+      PERMISSIONS: 1
+    volumes:
+      - type: bind
+        source: /opt/docker-images/multimedia/music-server/music
+        target: /srv/music
+    ports:
+      - "139:139"
+      - "445:445"
+    restart: "always"
