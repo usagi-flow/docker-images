@@ -3,7 +3,8 @@ version: "3.2"
 services:
 
   music-server:
-    image: airsonic/airsonic
+    build:
+      context: .
     volumes:
       - type: bind
         source: ./music
@@ -21,3 +22,4 @@ services:
       - "4040:4040"
       - "1900:1900"
     network_mode: "host"
+    restart: "on-failure"
