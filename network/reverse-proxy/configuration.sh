@@ -115,13 +115,16 @@ _writeLocations()
 		location_source="$(eval 'echo -n $location'$i'_source')"
 		location_destination="$(eval 'echo -n $location'$i'_destination')"
 		location_basicauth="$(eval 'echo -n $location'$i'_basicauth')"
+		location_setbaseurl="$(eval 'echo -n $location'$i'_setbaseurl')"
+		location_returncode="$(eval 'echo -n $location'$i'_returncode')"
+		location_returnbody="$(eval 'echo -n $location'$i'_returnbody')"
 
 		if [ -n "$location_source" ]; then
 			if [ -z "$location_basicauth" ]; then
 				location_basicauth=0
 			fi
 
-			_writeLocation "$location_source" "$location_destination" "$location_basicauth"
+			_writeLocation "$location_source" "$location_destination" "$location_basicauth" "$location_setbaseurl" "$location_returncode" "$location_returnbody"
 		else
 			break;
 		fi
@@ -138,6 +141,9 @@ _writeLocation()
 	location_source=$1
 	location_destination=$2
 	location_basicauth=$3
+	location_setbaseurl=$4
+	location_returncode=$5
+	location_returnbody=$6
 
 	_openBlock "location $location_source"
 
@@ -146,10 +152,22 @@ _writeLocation()
 		_writeEntry "auth_basic_user_file" "$HTPASSWD"
 	fi
 
-	_writeEntry "proxy_pass" "$location_destination"
+	if [ -nz "$location_returncode" ]; then
+		_writeEntry "return" "$location_returncode" "\"$location_returnbody\""
+	fi
+
+	if [ -nz "$location_destination" ]; then
+		_writeEntry "proxy_pass" "$location_destination"
+	fi
+
 	_writeEntry "proxy_set_header" "Upgrade" '$http_upgrade';
 	_writeEntry "proxy_set_header" "Connection" '"Upgrade"';
 	_writeEntry "proxy_set_header" "Accept-Encoding" "gzip";
+
+	if [ "$location_setbaseurl" -gt 0 ]; then
+		# TODO: verify if the trailing slash should be appended
+		_writeEntry "sub_filter" '"<head>"' "'<head><base href=\"$location_source/\"/>'";
+	fi
 
 	_closeBlock
 }
