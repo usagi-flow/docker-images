@@ -1,0 +1,14 @@
+version: '3.2'
+services:
+
+  web-server:
+    container_name: web-server
+    build:
+      context: .
+    volumes:
+      - type: bind
+        source: ~/webroot
+        target: /srv/www
+    ports:
+      - "8080:80"
+    restart: always
