@@ -133,7 +133,7 @@ _writeLocations()
 
 _writeLocation()
 {
-	if [ "$#" -ne 3 ]; then
+	if [ "$#" -ne 6 ]; then
 		echo "_writeLocation() requires three parameters" >> /dev/stderr
 		exit 1
 	fi
@@ -147,16 +147,16 @@ _writeLocation()
 
 	_openBlock "location $location_source"
 
-	if [ "$location_basicauth" -gt 0 ]; then
+	if [ ! -z "$location_basicauth" ] && [ "$location_basicauth" -gt 0 ]; then
 		_writeEntry "auth_basic" "$server_name"
 		_writeEntry "auth_basic_user_file" "$HTPASSWD"
 	fi
 
-	if [ -nz "$location_returncode" ]; then
+	if [ ! -z "$location_returncode" ]; then
 		_writeEntry "return" "$location_returncode" "\"$location_returnbody\""
 	fi
 
-	if [ -nz "$location_destination" ]; then
+	if [ ! -z "$location_destination" ]; then
 		_writeEntry "proxy_pass" "$location_destination"
 	fi
 
@@ -164,7 +164,7 @@ _writeLocation()
 	_writeEntry "proxy_set_header" "Connection" '"Upgrade"';
 	_writeEntry "proxy_set_header" "Accept-Encoding" "gzip";
 
-	if [ "$location_setbaseurl" -gt 0 ]; then
+	if [ ! -z "$location_setbaseurl" ] && [ "$location_setbaseurl" -gt 0 ]; then
 		# TODO: verify if the trailing slash should be appended
 		_writeEntry "sub_filter" '"<head>"' "'<head><base href=\"$location_source/\"/>'";
 	fi

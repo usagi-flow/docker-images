@@ -18,6 +18,10 @@ This image is configured through environment variables:
 	-	`location`_n_`_source`: (_mandatory_) The public endpoint
 	-	`location`_n_`_destination`: (_mandatory_) The backend server
 	-	`location`_n_`_basicauth`: (_optional, default: 0_) Enable basic authentication (`1`) or not (`0`) on this endpoint.
+	-	`location`_n_`_setbaseurl`: (_optional, default: 0_) Force setting the base URL in HTML responses from the upstream server (`1`) or not (`0`) on this endpoint.
+		-	This is useful when the source and destination do not share the same context, and the upstream application does not allow configuring the listening endpoint.
+	-	`location`_n_`_returncode`: (_optional_) If set, the destination `location`_n_`_destination` will be ignored and requests will be answered by the reverse-proxy with the indicated HTTP return code (200 for regular responses).
+	-	`location`_n_`_returnbody`: (_optional_) If `location`_n_`_returncode` is set, then the `location`_n_`_returnbody` defines the body of the response; it may also be left empty.
 -	**Users**: the .htpasswd entries; define any number of entries by using an numeric index _n_ starting with 0. See "Basic authentication" for more information.
 	-	`user`_n_: (_mandatory_) The .htpasswd user entry
 
