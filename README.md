@@ -32,6 +32,10 @@ Below you'll find an overview of all ready-to-use images, hosted on [hub.docker.
 
 		docker pull mrnehu/reverse-proxy
 
+-	[web-server](https://hub.docker.com/r/mrnehu/web-server) - A light-weight, yet robust web server for serving static content.
+
+		docker pull mrnehu/web-server
+
 
 ---
 
