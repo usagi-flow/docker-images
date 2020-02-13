@@ -5,21 +5,14 @@ services:
   music-server:
     build:
       context: .
+    container_name: "music-server"
     volumes:
-      - type: bind
-        source: ./music
-        target: /airsonic/music
-      - type: bind
-        source: ./podcasts
-        target: /airsonic/podcasts
-      - type: bind
-        source: ./playlists
-        target: /airsonic/playlists
-      - type: bind
-        source: ./data
-        target: /airsonic/data
-    ports:
-      - "4040:4040"
-      - "1900:1900"
+      - type: "bind"
+        source: ~/Musik
+        target: /srv/music
+    devices:
+      - /dev/snd
     network_mode: "host"
-    restart: "on-failure"
+    ports:
+      - "6600:6600"
+      - "6680:6680"
