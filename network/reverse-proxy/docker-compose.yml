@@ -3,8 +3,7 @@ version: "3.2"
 services:
 
   reverse-proxy:
-    build:
-      context: .
+    image: mrnehu/reverse-proxy
     container_name: reverse-proxy
     environment:
       # Note: '$' characters must be escaped with an extra '$'
