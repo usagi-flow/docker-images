@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Convenience script to invoke radare2 in a container:
+#
+# Example:
+#   dr2 -d ./my-target
+
+f="${@: -1}"
+
+echo "Target: $(realpath $f)"
+echo "r2 ${array[@]:0:$len-1} /tmp/target"
+
+docker run --rm --mount type=bind,source="$(realpath $f)",target=/tmp/target -it radare/radare2 r2 ${array[@]:0:$len-1} /tmp/target
