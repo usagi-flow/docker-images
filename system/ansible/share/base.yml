@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Install git
+      package:
+        name: git
+        state: present
+    - name: Install fish
+      package:
+        name: fish
+        state: present
+    - name: Download oh-my-fish
+      get_url:
+        url: https://get.oh-my.fish
+        dest: /tmp/omf.fish
+    - name: Install oh-my-fish
+      command: fish /tmp/omf.fish --noninteractive
+    - name: Cleanup
+      file:
+        name: /tmp/omf.fish
+        state: absent
