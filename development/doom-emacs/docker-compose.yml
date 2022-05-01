@@ -1,0 +1,9 @@
+version: "3.4"
+
+services:
+  doom-emacs:
+    container_name: doom-emacs
+    build:
+      context: .
+    tty: true
+    restart: "no"
