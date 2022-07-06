@@ -1,0 +1,6 @@
+version: "3.4"
+
+services:
+  tcpdump:
+    build: .
+    container_name: tcpdump
